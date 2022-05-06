@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <title>WebSocket demo</title>
+</head>
+
+<body>
+    <div class="live-chat-container">
+
+        <!-- append new messages from clients -->
+        <div class="messages"></div>
+
+        <input class="input-text" type="text" placeholder="Enter message here...">
+        <button class="submit" type="button">Submit message</button>
+
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    const messagesDiv = document.querySelector('.messages');
+    const textInput = document.querySelector('.input-text');
+    const submitBtn = document.querySelector('.submit')
+
+    const handleMessage = (data) => {
+        const msg = document.createElement('p');
+        msg.innerText = `${data}`;
+        messagesDiv.appendChild(msg);
+    }
+
+    // Create WebSocket connection.
+    const socket = new WebSocket('ws://localhost:8080');
+
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+        // socket.send('Hello Server!');
+        console.log('connection is opened')
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        console.log('Message from server ', event.data);
+        handleMessage(event.data)
+    });
+
+    //click event on the submit btn
+    submitBtn.addEventListener('click', () => {
+        const message = textInput.value;
+        socket.send(`${message}`);
+        textInput.value = "";
+    })
+
+</script>
+
+</html>
