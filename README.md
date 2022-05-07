@@ -1,5 +1,9 @@
 # websocket-live-chat-demo
 
+## Technologies used
+- Node.js (Server side)
+- HTML/CSS/JavaScript (Client side)
+
 ## Instructions
 - run 'npm install' to install dependencies.
 - Use the MDN documentation on how to use the WebSocket API, https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
